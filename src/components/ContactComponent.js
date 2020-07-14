@@ -22,14 +22,14 @@ class Contact extends Component {
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleBlur = this.handleBlur.bind(this);
+        // this.handleBlur = this.handleBlur.bind(this);
     }
 
-    handleBlur = (field) => (event) => {
-        this.setState({
-            touched: { ...this.state.touched, [field]: true}
-        })
-    }
+    // handleBlur = (field) => (event) => {
+    //     this.setState({
+    //         touched: { ...this.state.touched, [field]: true}
+    //     })
+    // }
     validate(firstname, lastname, telnum, email){
         const errors = {
             firstname: '',
@@ -130,7 +130,7 @@ class Contact extends Component {
                                 <Col md={10}>
                                     <Input type="text" id="firstname" name="firstname" placeholder="First Name" value={this.state.firstname} 
                                     valid={errors.firstname === ''} invalid={errors.firstname !== ''}
-                                    onBlur={this.handleBlur('firstname')} onChange={this.handleInputChange}/>
+                                    onChange={this.handleInputChange}/>
                                     <FormFeedback>
                                         {errors.firstname}
                                     </FormFeedback>
@@ -141,7 +141,7 @@ class Contact extends Component {
                                 <Col md={10}>
                                     <Input type="text" id="lastname" name="lastname" placeholder="Last Name" value={this.state.lastname}
                                     valid={errors.lastname === ''} invalid={errors.lastname !== ''}
-                                    onBlur={this.handleBlur('lastname')} onChange={this.handleInputChange}/>
+                                    onChange={this.handleInputChange}/>
                                     <FormFeedback>
                                         {errors.lastname}
                                     </FormFeedback>
@@ -152,7 +152,7 @@ class Contact extends Component {
                                 <Col md={10}>
                                     <Input type="tel" id="telnum" name="telnum" placeholder="Tel. number" value={this.state.telnum}
                                     valid={errors.telnum === ''} invalid={errors.telnum !== ''}
-                                    onBlur={this.handleBlur('telnum')} onChange={this.handleInputChange}/>
+                                    onChange={this.handleInputChange}/>
                                     <FormFeedback>
                                         {errors.telnum}
                                     </FormFeedback>
@@ -163,7 +163,7 @@ class Contact extends Component {
                                 <Col md={10}>
                                     <Input type="email" id="email" name="email" placeholder="Email" value={this.state.email}
                                     valid={errors.email === ''} invalid={errors.email !== ''}
-                                    onBlur={this.handleBlur('email')} onChange={this.handleInputChange}/>
+                                    onChange={this.handleInputChange}/>
                                     <FormFeedback>
                                         {errors.email}
                                     </FormFeedback>
