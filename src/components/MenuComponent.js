@@ -37,7 +37,7 @@ const Menu = (props) => {
         return (
             <div className="container">
                 <div className="row">
-                    {props.errMess}
+                    <h4>{props.dishes.errMess}</h4>
                 </div>
             </div>
         )

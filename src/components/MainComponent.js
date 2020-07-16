@@ -58,7 +58,7 @@ class Main extends Component {
           addComment={this.props.addComment}
           dishesLoading={this.props.dishes.isLoading}
           dishErrMess={this.props.dishes.errMess}
-          commentsLoading={this.props.comments.isLoading}
+          commentsLoading={this.props.promotions.isLoading}
           commentErrMess={this.props.comments.errMess}
           />
       )

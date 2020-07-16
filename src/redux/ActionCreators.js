@@ -14,8 +14,24 @@ export const addComment = (dishId, rating, author, comment) => ({
 export const fetchDishes = () => (dispatch) => {
     dispatch(dishesLoading());
     return fetch(baseUrl + 'dishes')
-    .then((response) => response.json())
-    .then((dishes) => dispatch(addDishes(dishes)))
+    .then(response => {
+        if (response.ok) {
+            return response;
+        } else {
+            var error = new Error('Error '+ response.status + response.statusText);
+            error.response = response;
+            console.log(response.status)
+            throw error;
+        }
+    }, 
+    error => {
+        var errmess = new Error(error.message);
+        console.log(error.message)
+        throw errmess;
+    })
+    .then(response => response.json())
+    .then(dishes => dispatch(addDishes(dishes)))
+    .catch(error => dispatch(dishesFailed(error.message)))
 };
 
 export const dishesLoading = () => ({
@@ -27,12 +43,31 @@ export const addDishes = (dishes) => ({
     payload: dishes
 })
 
+export const dishesFailed = (message) => ({
+    type: ActionTypes.DISHES_FAILED,
+    payload: message
+})
+
 
 export const fetchComments = () => (dispatch) => {
     dispatch(commentsLoading());
     return fetch(baseUrl + 'comments')
-    .then((response) => response.json())
-    .then((comments) => dispatch(addComments(comments)))
+    .then(response => {
+        if (response.ok) {
+            return response
+        } else {
+            var error = new Error('Error '+ response.status + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    }, 
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response => response.json())
+    .then(comments => dispatch(addComments(comments)))
+    .catch(error => dispatch(commentsFailed(error.message)))
 };
 
 export const commentsLoading = () => ({
@@ -42,13 +77,32 @@ export const commentsLoading = () => ({
 export const addComments = (comments) => ({
     type: ActionTypes.ADD_COMMENTS,
     payload: comments
-})
+});
+
+export const commentsFailed = (message) => ({
+    type: ActionTypes.COMMENTS_FAILED,
+    payload: message
+});
 
 export const fetchPromotions = () => (dispatch) => {
     dispatch(promotionsLoading());
     return fetch(baseUrl + 'promotions')
-    .then((response) => response.json())
-    .then((promotions) => dispatch(addPromotions(promotions)))
+    .then(response => {
+        if (response.ok) {
+            return response
+        } else {
+            var error = new Error('Error '+ response.status + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    }, 
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response => response.json())
+    .then(promotions => dispatch(addPromotions(promotions)))
+    .catch(error => dispatch(promotionsFailed(error.message)))
 };
 
 export const promotionsLoading = () => ({
@@ -58,4 +112,9 @@ export const promotionsLoading = () => ({
 export const addPromotions = (promotions) => ({
     type: ActionTypes.ADD_PROMOS,
     payload: promotions
+})
+
+export const promotionsFailed = (message) => ({
+    type: ActionTypes.PROMOS_FAILED,
+    payload: message
 })

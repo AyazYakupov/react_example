@@ -7,6 +7,7 @@ export const Dishes = (state = {isLoading: true, errMess: null, dishes: []}, act
         case ActionTypes.DISHES_LOADING:
             return {...state, isLoading: true, errMess: null, dishes: []};
         case ActionTypes.DISHES_FAILED:
+            console.log('dispatch dishes: ' + action.payload)
             return {...state, isLoading: false, errMess: action.payload};
         default: return state;
     }

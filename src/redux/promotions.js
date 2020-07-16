@@ -9,6 +9,7 @@ export const Promotions = (state = {isLoading: false, promotions: [], errMess: n
             return {...state, isLoading: true, errMess: null, promotions: []}
         }
         case ActionTypes.PROMOS_FAILED: {
+            console.log('dispatch dishes: ' + action.payload)
             return {...state, isLoading: false, errMess: action.payload}
         }
         default: return state
