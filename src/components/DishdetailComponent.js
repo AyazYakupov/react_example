@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Card, CardBody, CardImg, CardText, CardTitle, BreadcrumbItem, Breadcrumb, Button, Modal, ModalHeader, ModalBody, Row, Label, Col} from 'reactstrap'
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Errors} from 'react-redux-form'
+import { Control, Form, Errors} from 'react-redux-form'
 import {Loading} from './LoadingComponent'
 import {baseUrl} from '../shared/baseUrl'
 
@@ -26,7 +26,8 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values){
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment)
+        alert(JSON.stringify(values) + this.props.dishId)
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment)
         this.toggleModal()
     }
 
@@ -38,7 +39,7 @@ class CommentForm extends Component {
                         Submit Comment
                     </ModalHeader>
                     <ModalBody>
-                        <LocalForm onSubmit={(values) => {this.handleSubmit(values)}}>
+                    <Form model="comment" onSubmit={(values) => {this.handleSubmit(values)}}>
                             <Row className="form-group">
                                 <Col>
                                     <Label htmlFor="rating">Rating</Label>
@@ -77,7 +78,7 @@ class CommentForm extends Component {
                                     </Button>
                                 </Col>
                             </Row>
-                        </LocalForm>
+                        </Form>
                     </ModalBody>
                 </Modal>
                 <Button outline color="secondary" onClick={this.toggleModal}><span className="fa fa-pencil fa-lg"></span> Submit Comment</Button>
@@ -100,7 +101,7 @@ function RenderDish ({dish}) {
 }
 
 
-function RenderComments({comments, addComment, dishId}) {
+function RenderComments({comments, postComment, dishId}) {
     if (comments != null) {
         return (
             <div>
@@ -116,7 +117,7 @@ function RenderComments({comments, addComment, dishId}) {
                         )
                     })}
                 </ul>
-                <CommentForm dishId={dishId} addComment={addComment} /> 
+                <CommentForm dishId={dishId} postComment={postComment} /> 
             </div>
         )
     }
@@ -165,7 +166,7 @@ function DishDetail (props) {
                         <RenderComments 
                         comments={props.comments} 
                         dishId={props.dish.id} 
-                        addComment={props.addComment}
+                        postComment={props.postComment}
                         commentsLoading={props.commentsLoading}
                         commentErrMess={props.commentErrMess}
                         />
